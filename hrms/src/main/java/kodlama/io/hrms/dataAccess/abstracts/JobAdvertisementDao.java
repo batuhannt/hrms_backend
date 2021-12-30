@@ -10,6 +10,8 @@ import kodlama.io.hrms.entities.concretes.JobAdvertisement;
 
 public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Integer>{
 	
+	List<JobAdvertisement> getByjobPostingStaffValidation_isVerified(String isVerified);
+	
 	JobAdvertisement getByIdAndEmployer_Id(int id,int employer_id);
 	
 	JobAdvertisement getByOpenPositionAmount(int openPositionAmount);

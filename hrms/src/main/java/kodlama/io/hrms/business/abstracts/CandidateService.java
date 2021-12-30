@@ -15,4 +15,5 @@ public interface CandidateService extends EntityServiceRepository<Candidate>{
 	public DataResult<CvDto> getByCandidateId(int candidateId);
 	public DataResult<Candidate> findById(int candidateId);
 	public DataResult<List<Candidate>> findByFirstName(String firstName);
+	public Result deleteByCandidateId(int candidateId);
 }

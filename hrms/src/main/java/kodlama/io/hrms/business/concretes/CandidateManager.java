@@ -58,6 +58,7 @@ public class CandidateManager implements CandidateService{
 	public DataResult<List<Candidate>> getAll() {
 		
 		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(),"Data listelendi");
+		
 	}
 
 	
@@ -93,7 +94,7 @@ public class CandidateManager implements CandidateService{
 	public DataResult<CvDto> getByCandidateId(int candidateId){
 		CvDto cv=new CvDto();
 		
-		System.out.println(this.foreignLanguageService.findAllByCandidateId(candidateId));
+        System.out.println(this.educationService.findAllByCandidateId(candidateId).getData().getEducationDepartment());
 		
 		cv.setCandidate(this.findById(candidateId).getData());
 		cv.setEducationSchoolName(this.educationService.findAllByCandidateId(candidateId).getData().getSchoolName());
@@ -121,6 +122,14 @@ public class CandidateManager implements CandidateService{
 	@Override
 	public DataResult<List<Candidate>> findByFirstName(String firstName) {
 		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findByFirstName(firstName),"Data getirildi");
+	}
+
+
+	@Override
+	public Result deleteByCandidateId(int candidateId) {
+		this.candidateDao.deleteById(candidateId);
+		return new SuccessResult("Başarıyla Silindi");
+		
 	}
 
 

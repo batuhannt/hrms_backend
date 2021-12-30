@@ -4,6 +4,7 @@ package kodlama.io.hrms.entities.concretes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -40,19 +41,19 @@ public class Candidate extends User{
 	private int identityNumber;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="candidate")
+	@OneToMany(mappedBy="candidate",cascade = CascadeType.REMOVE)
 	private List<Education> educations;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="candidate")
+	@OneToMany(mappedBy="candidate",cascade = CascadeType.REMOVE)
 	private List<JobExperience> jobExperiences;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="candidate")
+	@OneToMany(mappedBy="candidate",cascade = CascadeType.REMOVE)
 	private List<ForeignLanguage> foreignLanguages;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="candidate")
+	@OneToMany(mappedBy="candidate",cascade = CascadeType.REMOVE)
 	private List<ProgrammingLanguage> programmingLanguages;
 	
 	

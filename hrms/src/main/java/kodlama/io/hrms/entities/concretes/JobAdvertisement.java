@@ -11,9 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -63,6 +64,9 @@ public class JobAdvertisement {
 	@JoinColumn(name="position_title_id")
 	private Position positions;
 	
+	@JsonIgnore
+	@OneToOne(mappedBy = "jobAdvertisement",cascade = CascadeType.REMOVE)
+	private JobPostingStaffValidation jobPostingStaffValidation;
 
 	
 	

@@ -9,12 +9,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlama.io.hrms.business.abstracts.JobAdvertisementService;
+
 import kodlama.io.hrms.core.utilities.results.DataResult;
 import kodlama.io.hrms.core.utilities.results.Result;
 import kodlama.io.hrms.core.utilities.results.SuccessDataResult;
 import kodlama.io.hrms.core.utilities.results.SuccessResult;
 import kodlama.io.hrms.dataAccess.abstracts.JobAdvertisementDao;
+import kodlama.io.hrms.dataAccess.abstracts.JobPostingStaffValidationDao;
 import kodlama.io.hrms.entities.concretes.JobAdvertisement;
+import kodlama.io.hrms.entities.concretes.JobPostingStaffValidation;
 
 
 @Service
@@ -22,18 +25,20 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	
 	
 	private JobAdvertisementDao jobAdvertisementDao;
+	private JobPostingStaffValidationDao _jobPostingStaffValidationDao;
 	
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisement) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisement,JobPostingStaffValidationDao jobPostingStaffValidationDao) {
 		super();
 		this.jobAdvertisementDao = jobAdvertisement;
+		this._jobPostingStaffValidationDao=jobPostingStaffValidationDao;
 	}
 
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAll() {
 		
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll()); 
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByjobPostingStaffValidation_isVerified("evet")); 
 	}
 	
 
@@ -41,6 +46,8 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	public Result add(JobAdvertisement jobAdvertisement) {
 		
 		this.jobAdvertisementDao.save(jobAdvertisement);
+		this._jobPostingStaffValidationDao.save(new JobPostingStaffValidation((int) 0L,
+				"hayır",null,jobAdvertisement));
 		return new SuccessResult("Data eklendi.");
 	}
 
